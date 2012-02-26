@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="scala" name="Scala">
+      <configuration>
+        <option name="compilerLibraryLevel" value="Project" />
+        <option name="compilerLibraryName" value="scala-2.9.1" />
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/../target/scala-2.9.1/classes" />
+    <output-test url="file://$MODULE_DIR$/../target/scala-2.9.1/test-classes" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/..">
+      <sourceFolder url="file://$MODULE_DIR$/../src/main/scala" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../src/main/resources" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../src/test/scala" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../src/test/resources" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/../target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="org.scala-lang_scala-library_2.9.1" level="project" />
+    <orderEntry type="library" name="org.scalatra_scalatra-specs2_2.9.1_2.0.1" level="project" />
+    <orderEntry type="library" name="org.scalatra_scalatra-test_2.9.1_2.0.1" level="project" />
+    <orderEntry type="library" name="org.eclipse.jetty_test-jetty-servlet_7.4.5.v20110725" level="project" />
+    <orderEntry type="library" name="org.eclipse.jetty_jetty-webapp_7.4.5.v20110725" level="project" />
+    <orderEntry type="library" name="org.eclipse.jetty_jetty-xml_7.4.5.v20110725" level="project" />
+    <orderEntry type="library" name="org.eclipse.jetty_jetty-util_7.4.5.v20110725" level="project" />
+    <orderEntry type="library" name="org.eclipse.jetty_jetty-servlet_7.4.5.v20110725" level="project" />
+    <orderEntry type="library" name="org.eclipse.jetty_jetty-security_7.4.5.v20110725" level="project" />
+    <orderEntry type="library" name="org.eclipse.jetty_jetty-server_7.4.5.v20110725" level="project" />
+    <orderEntry type="library" name="javax.servlet_servlet-api_2.5" level="project" />
+    <orderEntry type="library" name="org.eclipse.jetty_jetty-continuation_7.4.5.v20110725" level="project" />
+    <orderEntry type="library" name="org.eclipse.jetty_jetty-http_7.4.5.v20110725" level="project" />
+    <orderEntry type="library" name="org.eclipse.jetty_jetty-io_7.4.5.v20110725" level="project" />
+    <orderEntry type="library" name="org.mockito_mockito-all_1.8.5" level="project" />
+    <orderEntry type="library" name="org.apache.commons_commons-lang3_3.0.1" level="project" />
+    <orderEntry type="library" name="org.specs2_specs2_2.9.1_1.6.1" level="project" />
+    <orderEntry type="library" name="org.specs2_specs2-scalaz-core_2.9.1_6.0.1" level="project" />
+    <orderEntry type="library" name="org.scalatra_scalatra_2.9.1_2.0.1" level="project" />
+    <orderEntry type="library" name="net.liftweb_lift-json_2.9.1_2.4-M4" level="project" />
+    <orderEntry type="library" name="com.thoughtworks.paranamer_paranamer_2.3" level="project" />
+    <orderEntry type="library" name="org.scala-lang_scalap_2.9.1" level="project" />
+    <orderEntry type="library" name="org.scala-lang_scala-compiler_2.9.1" level="project" />
+    <orderEntry type="library" name="net.databinder_dispatch-http_2.9.1_0.8.7" level="project" />
+    <orderEntry type="library" name="net.databinder_dispatch-core_2.9.1_0.8.7" level="project" />
+    <orderEntry type="library" name="org.apache.httpcomponents_httpclient_4.1.2" level="project" />
+    <orderEntry type="library" name="org.apache.httpcomponents_httpcore_4.1.2" level="project" />
+    <orderEntry type="library" name="commons-logging_commons-logging_1.1.1" level="project" />
+    <orderEntry type="library" name="commons-codec_commons-codec_1.4" level="project" />
+    <orderEntry type="library" name="net.databinder_dispatch-futures_2.9.1_0.8.7" level="project" />
+    <orderEntry type="library" name="com.mongodb.casbah_casbah-query_2.9.1_2.1.5-1" level="project" />
+    <orderEntry type="library" name="com.mongodb.casbah_casbah-commons_2.9.1_2.1.5-1" level="project" />
+    <orderEntry type="library" name="org.scala-tools.time_time_2.9.1_0.5" level="project" />
+    <orderEntry type="library" name="joda-time_joda-time_1.6.2" level="project" />
+    <orderEntry type="library" name="org.mongodb_mongo-java-driver_2.5.3" level="project" />
+    <orderEntry type="library" name="org.scalaj_scalaj-collection_2.9.1_1.2" level="project" />
+    <orderEntry type="library" name="com.mongodb.casbah_casbah-core_2.9.1_2.1.5-1" level="project" />
+    <orderEntry type="library" name="com.mongodb.casbah_casbah-gridfs_2.9.1_2.1.5-1" level="project" />
+    <orderEntry type="library" name="com.novus_salat-core_2.9.1_0.0.8-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="com.novus_salat-util_2.9.1_0.0.8-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="org.slf4j_slf4j-api_1.6.4" level="project" />
+    <orderEntry type="library" name="ch.qos.logback_logback-classic_1.0.0" level="project" />
+    <orderEntry type="library" name="ch.qos.logback_logback-core_1.0.0" level="project" />
+  </component>
+</module>
+
