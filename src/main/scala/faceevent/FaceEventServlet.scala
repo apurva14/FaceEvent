@@ -13,6 +13,7 @@ import net.liftweb.json._
 
 class FaceEventServlet extends ScalatraServlet {
   implicit val formats = DefaultFormats
+
   post("/event") {
 
   }
