@@ -1,2 +1,4 @@
 container:start
 ~compile
+container:start
+~compile
