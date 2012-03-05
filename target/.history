@@ -2,3 +2,13 @@ container:start
 ~compile
 container:start
 ~compile
+container:start
+~compile
+container:start
+~compile
+exit
+container:start
+~compile
+exit
+container:start
+~compile

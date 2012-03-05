@@ -1,24 +1,115 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
+<html xmlns:fb="https://www.facebook.com/2008/fbml">
 <html>
 <head>
+    <script src="js/jquery-1.7.1.min.js"></script>
+    <script src="js/transparency.js"></script>
+    <title>Face Event</title>
+    <script type="text/javascript">
+        $(function() {
 
-    <title>My Great Web page</title>
+            $("#fb-auth").click(function() {
+                FB.getLoginStatus(function(response){
+                    if (response.status === 'connected') {
+                        // Logged in, authorized
+                        // response.authResponse supplies userID, accessToken, signedRequest, time, expiry
+                        onLogin(response)
+
+                    } else if (response.status === 'not_authorized') {
+                        // Logged in, but not authorized
+                        alert('Not Authorized');
+                    } else if (response.status === 'unknown') {
+                        // Not logged in
+                        FB.login(function(response) {
+                            if (response.authResponse) {
+                                onLogin(response)
+
+                            }
+                            else {
+                                // User not logged
+                                console.log('User cancelled login');
+                            }
+                        }, {scope: 'user_events,friends_events,read_friendlists'});
+                    }
+                    showLoader(false);
+                });
+            })
+
+            function onLogin(response) {
+                // User now logged
+                console.log('Welcome!  Fetching your information.... ');
+                FB.api('/me', function(user) {
+                    if (user) {
+                        var image = document.getElementById('image');
+                        image.src = 'https://graph.facebook.com/' + user.id + '/picture';
+                        var name = document.getElementById('name');
+                        name.innerHTML = user.name
+                    }
+                });
+                //getList()
+                friendsQuery()
+                //$(this).hide();
+            }
+
+            function friendsQuery(){
+                FB.api('/me/friends', function(response) {
+                    <!--if(response.data.length)   $("#facevent").removeClass("empty")-->
+                    <!--$("#friends ul").render(response.data)-->
+
+                    //for (var i=0,  i<1; i++) {
+                        var id = response.data[14].id;
+                        //alert(id)
+                        FB.api('/' + id + '/events', function(event) {
+                            <!--alert(event.data[0].name)-->
+                            <!--if(response.event.length)-->
+                                <!--alert(event.data[0].name)-->
+                            <!--else-->
+                                <!--alert('ZERO EVENT')-->
+                            $("#friends ul").render(event.data)
+                        });
+                    //}
+                    //alert(response.data[1].name)
+
+
+            });
+            }
+            function getList() {
+                $.ajax({
+                    url: "PROFILE_ID/friendlists",
+                    success: showFriends(response)
+                });
+            }
+            function showFriends(response) {
+                alert(response[1].name)
+            }
+
+
+        })
+    </script>
 </head>
 <body>
+        <iframe src="https://www.facebook.com/plugins/like.php?href=http://localhost:8080"
+            scrolling="no" frameborder="0"
+            style="border:none; width:450px; height:80px">
+        </iframe>
+
         <div id="fb-root"></div>
         <script>
             window.fbAsyncInit = function() {
-            FB.init({
-            appId      : '299151203483546', // App ID
-            channelUrl : '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel File
-            status     : true, // check login status
-            cookie     : true, // enable cookies to allow the server to access the session
-            xfbml      : true  // parse XFBML
-            });
+                FB.init({
+                    appId      : '181429478637839',
+                    status     : true,
+                    cookie     : true,
+                    xfbml      : true,
+                    oauth      : true
+                });
 
-            // Additional initialization code here
+                showLoader(true);
+
+
+
             };
+
 
             // Load the SDK Asynchronously
             (function(d){
@@ -28,9 +119,57 @@
             js.src = "//connect.facebook.net/en_US/all.js";
             ref.parentNode.insertBefore(js, ref);
             }(document));
+
+
+            function showLoader(status) {
+                if (status)
+                    document.getElementById('loader').style.display = 'block';
+                else
+                    document.getElementById('loader').style.display = 'none';
+            }
+
         </script>
+
     <h1>FaceEvent</h1>
-    <button type="button">Login with Facebook</button>
+    <div id="faceevent" class="empty">
+        <div id="loader" style="display:none">
+            <img src="Images/loader.gif" alt="Loading"/>
+        </div>
+        <button id="fb-auth">Login with facebook</button>
+        <!--
+        <div class="fb-login-button" data-show-faces="true" data-width="200" data-max-rows="2" data-scope="user_events,friends_events">
+            Login with Facebook
+        </div>
+        -->
+        <div align="center">
+            <img id="image"/>
+            <div id="name"></div>
+        </div>
+        <div id="friends">
+            <h2>Your friends</h2>
+            <table border="1">
+                <tr>
+                    <th>Event Name</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Location</th>
+                    <th>Description</th>
+                </tr>
+
+                    <tr>
+
+                        <td><ul><li class="name"></li></ul></td>
+                        <td><ul><li class="start_time"></li></ul></td>
+                        <td><ul><li class="end_time"></li></ul></td>
+                        <td><ul><li class="location"></li></ul></td>
+                        <td><ul><li class="description"></li></ul></td>
+
+                    </tr>
+
+            </table>
+        </div>
+
+    </div>
 </body>
 </html>
 </html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:fb="https://www.facebook.com/2008/fbml">
+<html>
+<head>
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+
+            FB.getLoginStatus(function(response){
+                alert('hello')
+                if (response.status === 'connected') {
+                    // Logged in, authorized
+                    // response.authResponse supplies userID, accessToken, signedRequest, time, expiry
+
+                } else if (response.status === 'not_authorized') {
+                    // Logged in, but not authorized
+                    alert('Not Authorized');
+                } else if (response.status === 'unknown') {
+                    // Not logged in
+
+
+                }
+
+            });
+
+        })
+    </script>
+    <title>Facebook Events</title>
+</head>
+<body>
+<div id="fb-root"></div>
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '181429478637839',
+                status     : true,
+                cookie     : true,
+                xfbml      : true,
+                oauth      : true
+            });
+        };
+        (function(d) {
+            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement('script');
+            js.id = id;
+            js.async = true;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            ref.parentNode.insertBefore(js, ref);
+        }(document));
+    </script>
+
+    <h1>Facebook Events</h1>
+
+</body>
+</html>
