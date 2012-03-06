@@ -2,13 +2,23 @@
 <html xmlns:fb="https://www.facebook.com/2008/fbml">
 <html>
 <head>
+    <title>faceEvent</title>
     <script src="js/jquery-1.7.1.min.js"></script>
     <script src="js/transparency.js"></script>
-    <title>Face Event</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        html { height: 100% }
+        body { height: 100%; margin: 0; padding: 0 }
+        #map_canvas { height: 100% }
+    </style>
+
     <script type="text/javascript">
         $(function() {
 
+
+
             $("#fb-auth").click(function() {
+
                 FB.getLoginStatus(function(response){
                     if (response.status === 'connected') {
                         // Logged in, authorized
@@ -23,7 +33,6 @@
                         FB.login(function(response) {
                             if (response.authResponse) {
                                 onLogin(response)
-
                             }
                             else {
                                 // User not logged
@@ -31,10 +40,32 @@
                             }
                         }, {scope: 'user_events,friends_events,read_friendlists'});
                     }
-                    showLoader(false);
+                    <!--showLoader(false);-->
                 });
+
             })
 
+            <!--$("onEvents td").click(fucntion(){-->
+                <!--var col = $(this).parent().children().index($(this));-->
+                <!--var row = $(this).parent().parent().children().index($(this).parent());-->
+                <!--alert('Row: ' + row + ', Column: ' + col);-->
+            <!--})-->
+            <!--$("#onEvents td").click(function(){-->
+                <!--alert('join')-->
+            <!--})-->
+            var trInstance = $("#onEvents").find('tr');
+            trInstance.click(function () {
+                alert('join')
+                <!--trInstance.removeClass('redCSS');-->
+                <!--trInstance.find('td:eq(0)').removeClass('greenCSS');-->
+                <!--var instance = $(this);-->
+                <!--instance.addClass('redCSS');-->
+                <!--instance.find('td:eq(0)').addClass('greenCSS');-->
+            });
+
+            $("#displayMap").click(function() {
+                loadScript()
+            })
             function onLogin(response) {
                 // User now logged
                 console.log('Welcome!  Fetching your information.... ');
@@ -44,184 +75,173 @@
                         image.src = 'https://graph.facebook.com/' + user.id + '/picture';
                         var name = document.getElementById('name');
                         name.innerHTML = user.name
+
                     }
                 });
-                //getList()
                 friendsQuery()
-                //$(this).hide();
             }
-            <!--var eventId = new Array(100)-->
-            <!--var eventName = new Array(100)-->
-            <!--var eventStartTime = new Array(100)-->
-            <!--var eventEndTime = new Array(100)-->
-            <!--var eventLocation = new Array(100)-->
-
             function friendsQuery(){
                 FB.api('/me/friends', function(response) {
-                    <!--if(response.data.length)   $("#facevent").removeClass("empty")-->
-                    <!--$("#friends ul").render(response.data)-->
                     var l1=response.data.length;
                     i=0;
-                    <!--var j = 0;-->
-                    var k = 0;
-                    var l2;
-                    var eventId = new Array()
-                    var eventName = new Array()
-                    var eventStartTime = new Array()
-                    var eventEndTime = new Array()
-                    var eventLocation = new Array()
-                    var table = $("<table>").appendTo(document.body);
-                    var tr1 = $("<tr>").appendTo(table);
-                    $("<th>").appendTo(tr1).html('YOUR FRIEND');
-                    $("<th>").appendTo(tr1).html('EVENT LINK');
-                    $("<th>").appendTo(tr1).html('EVENT NAME');
-                    $("<th>").appendTo(tr1).html('START TIME');
-                    $("<th>").appendTo(tr1).html('END TIME');
-                    $("<th>").appendTo(tr1).html('LOCATION');
-                    $.each(response.data, function(i, frnd) {
-                    <!--for (i=0; i < l1;  i++) {-->
-                        var idValue = frnd.id;
 
+                    var table = $("<table>").appendTo($('.onEvents')).css({'border' : '3', 'border-style':'solid'});
+                    var tr1 = $("<tr>").appendTo(table).css({'height' : '30px', 'border-width':'5px','background-color': '#BFEFFF', 'border-style':'solid', 'border-color': '#FFBD32'});
+                    $("<th>").appendTo(tr1).html('YOUR FRIEND').css({'height' : '30px', 'width' : '150px'});
+                    $("<th>").appendTo(tr1).html('EVENT NAME').css({'height' : '30px', 'width' : '400px'});
+                    $("<th>").appendTo(tr1).html('START TIME').css({'height' : '30px', 'width' : '150px'});
+                    $("<th>").appendTo(tr1).html('END TIME').css({'height' : '30px', 'width' : '150px'});
+                    $("<th>").appendTo(tr1).html('LOCATION').css({'height' : '30px', 'width' : '200px'});
+                    $("<th>").appendTo(tr1).html('EVENT LINK').css({'height' : '30px', 'width' : '50px'});
+                    $("<th>").appendTo(tr1).html('JOIN').css({'height' : '30px', 'width' : '50px'});
+                    $.each(response.data, function(i, frnd) {
+                        var idValue = frnd.id;
                         var nameValue = frnd.name;
                         FB.api('/' + idValue + '/events', function(event) {
 
                             $.each(event.data, function(j, row) {
-                                var tr = $("<tr>").appendTo(table);
-                                $("<td>").appendTo(tr).html(nameValue);
-                                $("<td>").appendTo(tr).html('https://facebook.com/events/' + row.id);
-                                $("<td>").appendTo(tr).html(row.name);
-                                $("<td>").appendTo(tr).html(row.start_time);
-                                $("<td>").appendTo(tr).html(row.end_time);
-                                $("<td>").appendTo(tr).html(row.location);
+                                var tr = $("<tr>").appendTo(table).css({'height' : '30px', 'border-width':'5px','background-color': '#BFEFFF', 'border-style':'solid', 'border-color': '#FFBD32'});
+                                $("<td>").appendTo(tr).html(nameValue).css({'text-align':'center', 'border-color': '#FFBD32'});
+                                $("<td>").appendTo(tr).html(row.name).css({'text-align':'center', 'border-color': '#FFBD32'});
+                                var st = row.start_time;
+                                var nst = st.replace(/T/g, " ");
+                                <!--$("<td>").appendTo(tr).html(nst).css({'position' : 'absolute', 'width' : '100'});-->
+                                $("<td>").appendTo(tr).html(nst).css({'text-align':'center', 'border-color': '#FFBD32'});
+                                st = row.end_time;
+                                nst = st.replace(/T/g, " ");
+                                $("<td>").appendTo(tr).html(nst).css({'text-align':'center', 'border-color': '#FFBD32'});
+                                $("<td>").appendTo(tr).html(row.location).css({'text-align':'center', 'border-color': '#FFBD32'});
+                                $("<td>").appendTo(tr).html("<a href=https://facebook.com/events/" + row.id + ">Go to Event</a>");
+                                <!--$("<td>").appendTo(tr).html("<a href=https://facebook.com/events/" + row.id + ">Join</a>");-->
+                                $("<td>").appendTo(tr).html("<button>Join</button>");
                             });
-                            <!--if (event.data.length) {-->
-                                <!--&lt;!&ndash;alert('inside loop')&ndash;&gt;-->
-                                <!--l2=event.data.length;-->
-                                <!--&lt;!&ndash;alert(l2)&ndash;&gt;-->
-                                <!--for(k=0; k < l2; k++) {-->
-                                    <!--&lt;!&ndash;alert(event.data[k].id)&ndash;&gt;-->
-                                    <!--var num = event.data[k].id;-->
-                                    <!--alert(num)-->
-                                    <!--eventId[j] = num;-->
-                                    <!--eventName[j] = event.data[k].name;-->
-                                    <!--eventStartTime[j] = event.data[k].start_time;-->
-                                    <!--eventEndTime[j] = event.data[k].end_time;-->
-                                    <!--eventLocation[j] = event.data[k].location;-->
-                                    <!--&lt;!&ndash;alert(event.data[k])&ndash;&gt;-->
-                                    <!--&lt;!&ndash;alert(eventArray[j])&ndash;&gt;-->
-                                    <!--j++;-->
-                                    <!--&lt;!&ndash;alert(j)&ndash;&gt;-->
-                                <!--}-->
-                            <!--}-->
                         });
-
                     });
-                    <!--if (i == l1) alert('hello')-->
-                    <!--$("#friends ul").render(eventArray)-->
-                        <!--FB.api('/' + id + '/events', function(event) {-->
-                            <!--$("#friends ul").render(event.data)-->
-                        <!--});-->
-
                });
             }
-            <!--function getList() {-->
-                <!--$.ajax({-->
-                    <!--url: "PROFILE_ID/friendlists",-->
-                    <!--success: showFriends(response)-->
-                <!--});-->
-            <!--}-->
-            <!--function showFriends(response) {-->
-                <!--alert(response[1].name)-->
-            <!--}-->
-
-
+            function loadScript() {
+                var script = document.createElement("script");
+                script.type = "text/javascript";
+                script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyBk5pdgIN09UXYj2yFDA8qiEJTPwJdiUwM&sensor=false&callback=initialize";
+                document.body.appendChild(script);
+            }
         })
+        function initialize() {
+            var myOptions = {
+                zoom: 8,
+                center: new google.maps.LatLng(60.186892,24.82186),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+        }
     </script>
+    <link type="text/css" rel="stylesheet" href="css/style.css">
 </head>
 <body>
-        <iframe src="https://www.facebook.com/plugins/like.php?href=http://localhost:8080"
-            scrolling="no" frameborder="0"
-            style="border:none; width:450px; height:80px">
-        </iframe>
+    <div id="fb-root"></div>
 
-        <div id="fb-root"></div>
-        <script>
-            window.fbAsyncInit = function() {
-                FB.init({
-                    appId      : '181429478637839',
-                    status     : true,
-                    cookie     : true,
-                    xfbml      : true,
-                    oauth      : true
-                });
-
-                showLoader(true);
-
-
-
-            };
-
-
-            // Load the SDK Asynchronously
-            (function(d){
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '181429478637839',
+                status     : true,
+                cookie     : true,
+                xfbml      : true,
+                oauth      : true
+            });
+            <!--showLoader(true);-->
+        };
+        // Load the SDK Asynchronously
+        (function(d) {
             var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
             if (d.getElementById(id)) {return;}
-            js = d.createElement('script'); js.id = id; js.async = true;
-            js.src = "//connect.facebook.net/en_US/all.js";
-            ref.parentNode.insertBefore(js, ref);
-            }(document));
+                js = d.createElement('script'); js.id = id; js.async = true;
+                js.src = "//connect.facebook.net/en_US/all.js";
+                ref.parentNode.insertBefore(js, ref);
+        }(document));
+        <!--function showLoader(status) {-->
+            <!--if (status)-->
+                <!--document.getElementById('loader').style.display = 'block';-->
+            <!--else-->
+                <!--document.getElementById('loader').style.display = 'none';-->
+        <!--}-->
+    </script>
 
-
-            function showLoader(status) {
-                if (status)
-                    document.getElementById('loader').style.display = 'block';
-                else
-                    document.getElementById('loader').style.display = 'none';
-            }
-
-        </script>
-
-    <h1>FaceEvent</h1>
-    <div id="faceevent" class="empty">
-        <div id="loader" style="display:none">
-            <img src="Images/loader.gif" alt="Loading"/>
+    <div id="header">
+        <div id="container">
+            <div id="logo">faceEvent</div>
+            <div id="identity">
+                <table>
+                    <tr>
+                        <td><img id="image"/></td>
+                        <td><div id="name"></div></td>
+                        <!--<button id="fbLogout"><span>Logout</span></button>-->
+                    </tr>
+                </table>
+            </div>
         </div>
-        <button id="fb-auth">Login with facebook</button>
-        <!--
-        <div class="fb-login-button" data-show-faces="true" data-width="200" data-max-rows="2" data-scope="user_events,friends_events">
-            Login with Facebook
-        </div>
-        -->
-        <div align="center">
-            <img id="image"/>
-            <div id="name"></div>
-        </div>
-        <h2>Events your friends are going to</h2>
-        <!--<div id="friends">-->
-            <!--<h2>Events your friends are going to</h2>-->
-            <!--<table border="0">-->
-                <!--<tr>-->
-                    <!--<th>Event Name</th>-->
-                    <!--<th>Start Time</th>-->
-                    <!--<th>End Time</th>-->
-                    <!--<th>Location</th>-->
-                    <!--<th>Description</th>-->
-                <!--</tr>-->
-
-                    <!--<tr>-->
-
-                        <!--<td><ul style="list-style: none;"><li class="name"></li></ul></td>-->
-                        <!--<td><ul style="list-style: none;"><li class="start_time"></li></ul></td>-->
-                        <!--<td><ul style="list-style: none;"><li class="end_time"></li></ul></td>-->
-                        <!--<td><ul style="list-style: none;"><li class="location"></li></ul></td>-->
-                        <!--<td><ul style="list-style: none;"><li class="description"></li></ul></td>-->
-
-                    <!--</tr>-->
-
-            <!--</table>-->
-        <!--</div>-->
-
     </div>
+
+    <div id="content">
+        <div id="container">
+            <div id="left-sidebar">
+                <div id="logo">
+                    <img src="Images/logo.jpg" width="270" height="200">
+                </div>
+                <h2>Activity feed</h2>
+                <div class="facebook-plugin">
+                    <iframe src="https://www.facebook.com/plugins/like.php?href=http://localhost:8080"
+                            scrolling="no" frameborder="0"
+                            style="border:none; width:450px; height:50px">
+                    </iframe>
+                </div>
+                <div class="facebook-plugin">
+                    <div class="fb-comments" data-href="http://group03.naf.cs.hut.fi/" data-num-posts="2" data-width="250"></div>
+                </div>
+                <div class="facebook-plugin">
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-via="jaiswal_apurva" data-size="large">Tweet</a>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                </div>
+                <div id="showMap" align="left">
+                    <button id="displayMap">Locate Us!</button>
+                </div>
+
+            </div>
+            <div id="right-sidebar">
+                <h1>Catch up with all the Facebook Events your friends are going to join!</h1>
+                <h2>Never miss any Facebook Event</h2>
+                <div id="faceevent" class="empty">
+                    <!--<div id="loader" style="display:none">-->
+                        <!--<img src="Images/loader.gif" alt="Loading"/>-->
+                    <!--</div>-->
+                    <button id="fb-auth" class="b">Login with facebook</button>
+                    <!--<div class="fb-login-button" data-scope="user_events,friends_events,read_friendlists" data-show-faces="true" data-width="200" data-max-rows="1"></div>-->
+                </div>
+                <div id="onEvents">
+                    <h2>Events your friends are going to attend </h2>
+                </div>
+                <div class="onEvents">
+
+                </div>
+                <!--<div class="facebook-plugin">-->
+                    <!--<fb:like></fb:like>-->
+                <!--</div>-->
+                <!--<h2>Map</h2>-->
+                <!--<div id="address">-->
+                    <!--<a href="http://maps.google.com/maps?f=q&hl=en&q=34.14442,-114.285441" target="_blank">1601 S. California Ave. Palo Alto, CA</a>-->
+                <!--</div>-->
+                <!--<div id="map">-->
+                    <!--<a href="http://maps.google.com/maps?f=q&hl=en&q=34.14442,-114.285441" target="_blank">-->
+                        <!--<img src="http://maps.google.com/maps/api/staticmap?center=34.14442,-114.285441&zoom=14&size=610x150&maptype=roadmap&markers=color:red|color:red|label:C|34.14442,-114.2854416&sensor=false">-->
+                    <!--</a>-->
+                <!--</div>-->
+                <!--<h2>Comments</h2>-->
+                <!--<fb:comments url="http://www.myfbse.com/winery/storybar.html" width="610px" height="700px" simple="1" css="http://www.fbse.com/winery/style.css"></fb:comments>-->
+            </div>
+        </div>
+    </div>
+    <div id="map_canvas" align="center" style="width:100%; height:100%"></div>
+
 </body>
 </html>
 </html>
