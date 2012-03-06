@@ -50,38 +50,70 @@
                 friendsQuery()
                 //$(this).hide();
             }
+            <!--var eventId = new Array(100)-->
+            <!--var eventName = new Array(100)-->
+            <!--var eventStartTime = new Array(100)-->
+            <!--var eventEndTime = new Array(100)-->
+            <!--var eventLocation = new Array(100)-->
 
             function friendsQuery(){
                 FB.api('/me/friends', function(response) {
                     <!--if(response.data.length)   $("#facevent").removeClass("empty")-->
                     <!--$("#friends ul").render(response.data)-->
+                    var l1=response.data.length;
+                    var i=0;
+                    var j = 0;
+                    var k = 0;
+                    var l2;
+                    var eventId = new Array()
+                    var eventName = new Array()
+                    var eventStartTime = new Array()
+                    var eventEndTime = new Array()
+                    var eventLocation = new Array()
 
-                    //for (var i=0,  i<1; i++) {
-                        var id = response.data[14].id;
-                        //alert(id)
-                        FB.api('/' + id + '/events', function(event) {
-                            <!--alert(event.data[0].name)-->
-                            <!--if(response.event.length)-->
-                                <!--alert(event.data[0].name)-->
-                            <!--else-->
-                                <!--alert('ZERO EVENT')-->
-                            $("#friends ul").render(event.data)
+                    for (i=0; i < l1;  i++) {
+                        var idValue = response.data[i].id;
+                        FB.api('/' + idValue + '/events', function(event) {
+
+                            if (event.data.length) {
+                                <!--alert('inside loop')-->
+                                l2=event.data.length;
+                                <!--alert(l2)-->
+                                for(k=0; k < l2; k++) {
+                                    <!--alert(event.data[k].id)-->
+                                    var num = event.data[k].id;
+                                    alert(num)
+                                    eventId[j] = num;
+                                    eventName[j] = event.data[k].name;
+                                    eventStartTime[j] = event.data[k].start_time;
+                                    eventEndTime[j] = event.data[k].end_time;
+                                    eventLocation[j] = event.data[k].location;
+                                    <!--alert(event.data[k])-->
+                                    <!--alert(eventArray[j])-->
+                                    j++;
+                                    <!--alert(j)-->
+                                }
+                            }
                         });
-                    //}
-                    //alert(response.data[1].name)
 
+                    }
+                    if (i == l1) alert('hello')
+                    <!--$("#friends ul").render(eventArray)-->
+                        <!--FB.api('/' + id + '/events', function(event) {-->
+                            <!--$("#friends ul").render(event.data)-->
+                        <!--});-->
 
-            });
+               });
             }
-            function getList() {
-                $.ajax({
-                    url: "PROFILE_ID/friendlists",
-                    success: showFriends(response)
-                });
-            }
-            function showFriends(response) {
-                alert(response[1].name)
-            }
+            <!--function getList() {-->
+                <!--$.ajax({-->
+                    <!--url: "PROFILE_ID/friendlists",-->
+                    <!--success: showFriends(response)-->
+                <!--});-->
+            <!--}-->
+            <!--function showFriends(response) {-->
+                <!--alert(response[1].name)-->
+            <!--}-->
 
 
         })
@@ -146,8 +178,8 @@
             <div id="name"></div>
         </div>
         <div id="friends">
-            <h2>Your friends</h2>
-            <table border="1">
+            <h2>Events your friends are going to</h2>
+            <table border="0">
                 <tr>
                     <th>Event Name</th>
                     <th>Start Time</th>
@@ -158,11 +190,11 @@
 
                     <tr>
 
-                        <td><ul><li class="name"></li></ul></td>
-                        <td><ul><li class="start_time"></li></ul></td>
-                        <td><ul><li class="end_time"></li></ul></td>
-                        <td><ul><li class="location"></li></ul></td>
-                        <td><ul><li class="description"></li></ul></td>
+                        <td><ul style="list-style: none;"><li class="name"></li></ul></td>
+                        <td><ul style="list-style: none;"><li class="start_time"></li></ul></td>
+                        <td><ul style="list-style: none;"><li class="end_time"></li></ul></td>
+                        <td><ul style="list-style: none;"><li class="location"></li></ul></td>
+                        <td><ul style="list-style: none;"><li class="description"></li></ul></td>
 
                     </tr>
 
