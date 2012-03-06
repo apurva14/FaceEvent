@@ -61,8 +61,8 @@
                     <!--if(response.data.length)   $("#facevent").removeClass("empty")-->
                     <!--$("#friends ul").render(response.data)-->
                     var l1=response.data.length;
-                    var i=0;
-                    var j = 0;
+                    i=0;
+                    <!--var j = 0;-->
                     var k = 0;
                     var l2;
                     var eventId = new Array()
@@ -70,34 +70,53 @@
                     var eventStartTime = new Array()
                     var eventEndTime = new Array()
                     var eventLocation = new Array()
+                    var table = $("<table>").appendTo(document.body);
+                    var tr1 = $("<tr>").appendTo(table);
+                    $("<th>").appendTo(tr1).html('YOUR FRIEND');
+                    $("<th>").appendTo(tr1).html('EVENT LINK');
+                    $("<th>").appendTo(tr1).html('EVENT NAME');
+                    $("<th>").appendTo(tr1).html('START TIME');
+                    $("<th>").appendTo(tr1).html('END TIME');
+                    $("<th>").appendTo(tr1).html('LOCATION');
+                    $.each(response.data, function(i, frnd) {
+                    <!--for (i=0; i < l1;  i++) {-->
+                        var idValue = frnd.id;
 
-                    for (i=0; i < l1;  i++) {
-                        var idValue = response.data[i].id;
+                        var nameValue = frnd.name;
                         FB.api('/' + idValue + '/events', function(event) {
 
-                            if (event.data.length) {
-                                <!--alert('inside loop')-->
-                                l2=event.data.length;
-                                <!--alert(l2)-->
-                                for(k=0; k < l2; k++) {
-                                    <!--alert(event.data[k].id)-->
-                                    var num = event.data[k].id;
-                                    alert(num)
-                                    eventId[j] = num;
-                                    eventName[j] = event.data[k].name;
-                                    eventStartTime[j] = event.data[k].start_time;
-                                    eventEndTime[j] = event.data[k].end_time;
-                                    eventLocation[j] = event.data[k].location;
-                                    <!--alert(event.data[k])-->
-                                    <!--alert(eventArray[j])-->
-                                    j++;
-                                    <!--alert(j)-->
-                                }
-                            }
+                            $.each(event.data, function(j, row) {
+                                var tr = $("<tr>").appendTo(table);
+                                $("<td>").appendTo(tr).html(nameValue);
+                                $("<td>").appendTo(tr).html('https://facebook.com/events/' + row.id);
+                                $("<td>").appendTo(tr).html(row.name);
+                                $("<td>").appendTo(tr).html(row.start_time);
+                                $("<td>").appendTo(tr).html(row.end_time);
+                                $("<td>").appendTo(tr).html(row.location);
+                            });
+                            <!--if (event.data.length) {-->
+                                <!--&lt;!&ndash;alert('inside loop')&ndash;&gt;-->
+                                <!--l2=event.data.length;-->
+                                <!--&lt;!&ndash;alert(l2)&ndash;&gt;-->
+                                <!--for(k=0; k < l2; k++) {-->
+                                    <!--&lt;!&ndash;alert(event.data[k].id)&ndash;&gt;-->
+                                    <!--var num = event.data[k].id;-->
+                                    <!--alert(num)-->
+                                    <!--eventId[j] = num;-->
+                                    <!--eventName[j] = event.data[k].name;-->
+                                    <!--eventStartTime[j] = event.data[k].start_time;-->
+                                    <!--eventEndTime[j] = event.data[k].end_time;-->
+                                    <!--eventLocation[j] = event.data[k].location;-->
+                                    <!--&lt;!&ndash;alert(event.data[k])&ndash;&gt;-->
+                                    <!--&lt;!&ndash;alert(eventArray[j])&ndash;&gt;-->
+                                    <!--j++;-->
+                                    <!--&lt;!&ndash;alert(j)&ndash;&gt;-->
+                                <!--}-->
+                            <!--}-->
                         });
 
-                    }
-                    if (i == l1) alert('hello')
+                    });
+                    <!--if (i == l1) alert('hello')-->
                     <!--$("#friends ul").render(eventArray)-->
                         <!--FB.api('/' + id + '/events', function(event) {-->
                             <!--$("#friends ul").render(event.data)-->
@@ -177,29 +196,30 @@
             <img id="image"/>
             <div id="name"></div>
         </div>
-        <div id="friends">
-            <h2>Events your friends are going to</h2>
-            <table border="0">
-                <tr>
-                    <th>Event Name</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                    <th>Location</th>
-                    <th>Description</th>
-                </tr>
+        <h2>Events your friends are going to</h2>
+        <!--<div id="friends">-->
+            <!--<h2>Events your friends are going to</h2>-->
+            <!--<table border="0">-->
+                <!--<tr>-->
+                    <!--<th>Event Name</th>-->
+                    <!--<th>Start Time</th>-->
+                    <!--<th>End Time</th>-->
+                    <!--<th>Location</th>-->
+                    <!--<th>Description</th>-->
+                <!--</tr>-->
 
-                    <tr>
+                    <!--<tr>-->
 
-                        <td><ul style="list-style: none;"><li class="name"></li></ul></td>
-                        <td><ul style="list-style: none;"><li class="start_time"></li></ul></td>
-                        <td><ul style="list-style: none;"><li class="end_time"></li></ul></td>
-                        <td><ul style="list-style: none;"><li class="location"></li></ul></td>
-                        <td><ul style="list-style: none;"><li class="description"></li></ul></td>
+                        <!--<td><ul style="list-style: none;"><li class="name"></li></ul></td>-->
+                        <!--<td><ul style="list-style: none;"><li class="start_time"></li></ul></td>-->
+                        <!--<td><ul style="list-style: none;"><li class="end_time"></li></ul></td>-->
+                        <!--<td><ul style="list-style: none;"><li class="location"></li></ul></td>-->
+                        <!--<td><ul style="list-style: none;"><li class="description"></li></ul></td>-->
 
-                    </tr>
+                    <!--</tr>-->
 
-            </table>
-        </div>
+            <!--</table>-->
+        <!--</div>-->
 
     </div>
 </body>
